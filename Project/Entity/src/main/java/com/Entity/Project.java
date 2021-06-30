@@ -1,40 +1,35 @@
 package com.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "PROJECT")
 public class Project {
     @Id
     @GeneratedValue
-    private int project_id;
-    private Date Datetime;
-
-    public Date getDatetime() {
-        return Datetime;
+    private Long projectID;
+    private String projectName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UserID")
+    private User user;
+    @ManyToMany(mappedBy = "project", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<User> users = new HashSet<>();
+    public Long getProjectID() {
+        return projectID;
     }
 
-    public void setDatetime(Date datetime) {
-        Datetime = datetime;
+    public void setProject_ID(Long projectID) {
+        this.projectID = projectID;
     }
 
-    public Date getOwner() {
-        return owner;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setOwner(Date owner) {
-        this.owner = owner;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
-
-    public int getProject_id() {
-        return project_id;
-    }
-
-    public void setProject_id(int project_id) {
-        this.project_id = project_id;
-    }
-
-    private Date owner;
 }

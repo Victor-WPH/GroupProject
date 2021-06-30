@@ -1,39 +1,45 @@
 package com.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Resources {
     @Id
     @GeneratedValue
-    private int resource_id;
-    private Date time_created;
-    private Date last_updated;
+    private Long resourceID;
+    private String resourceName;
+    private String resourceCode;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "project_Resource", joinColumns = {@JoinColumn(name = "projectResourceID"), @JoinColumn(name = "projectID")},
+    inverseJoinColumns = {@JoinColumn(name = "resourceID")}
+            )
+    private Set<Project> projects = new HashSet<>();
 
-    public int getResource_id() {
-        return resource_id;
+    public Long getResourceID() {
+        return resourceID;
     }
 
-    public void setResource_id(int resource_id) {
-        this.resource_id = resource_id;
+    public void setResourceID(Long resourceID) {
+        this.resourceID = resourceID;
     }
 
-    public Date getTime_created() {
-        return time_created;
+    public String getResourceName() {
+        return resourceName;
     }
 
-    public void setTime_created(Date time_created) {
-        this.time_created = time_created;
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
 
-    public Date getLast_updated() {
-        return last_updated;
+    public String getResourceCode() {
+        return resourceCode;
     }
 
-    public void setLast_updated(Date last_updated) {
-        this.last_updated = last_updated;
+    public void setResourceCode(String resourceCode) {
+        this.resourceCode = resourceCode;
     }
 }
+

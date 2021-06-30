@@ -1,40 +1,43 @@
 package com.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue
-    private String user_name;
-    private String title;
-    private String role;
+    private Long UserID;
+    private String UserName;
+    private Date time_created;
+    private Date last_updated;
+    private String password;
+    @OneToMany(mappedBy = "User", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Project> projects;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "ProjectUser", joinColumns = {@JoinColumn(name = "ProjectUserID"), @JoinColumn(name = "UserID")},
+            inverseJoinColumns = {@JoinColumn(name = "ProjectID")}
 
-    public String getUser_name() {
-        return user_name;
+    )
+    private Set<Project> project = new HashSet<>();
+    public Long getUserID() {
+        return UserID;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUser_ID(Long userID) {
+        UserID = userID;
     }
 
-    public String getTitle() {
-        return title;
+    public String getUserName() {
+        return UserName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setUserName(String userName) {
+        UserName = userName;
     }
 
     public Date getTime_created() {
@@ -60,11 +63,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private Date time_created;
-    private Date last_updated;
-    private String password;
-
-
-
 }
+
