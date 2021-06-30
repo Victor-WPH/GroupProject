@@ -18,6 +18,17 @@ public class Resources {
             )
     private Set<Project> projects = new HashSet<>();
 
+    public Resources(Long resourceID, String resourceName, String resourceCode, Set<Project> projects) {
+        this.resourceID = resourceID;
+        this.resourceName = resourceName;
+        this.resourceCode = resourceCode;
+        this.projects = projects;
+    }
+
+    public Resources() {
+
+    }
+
     public Long getResourceID() {
         return resourceID;
     }

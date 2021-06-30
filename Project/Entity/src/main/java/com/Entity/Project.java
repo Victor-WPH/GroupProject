@@ -17,6 +17,18 @@ public class Project {
     private User user;
     @ManyToMany(mappedBy = "project", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
+
+    public Project(Long projectID, String projectName, User user, Set<User> users) {
+        this.projectID = projectID;
+        this.projectName = projectName;
+        this.user = user;
+        this.users = users;
+    }
+
+    public Project() {
+
+    }
+
     public Long getProjectID() {
         return projectID;
     }

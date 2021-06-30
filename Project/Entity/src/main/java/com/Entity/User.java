@@ -24,6 +24,21 @@ public class User {
 
     )
     private Set<Project> project = new HashSet<>();
+
+    public User(Long userID, String userName, Date time_created, Date last_updated, String password, List<Project> projects, Set<Project> project) {
+        UserID = userID;
+        UserName = userName;
+        this.time_created = time_created;
+        this.last_updated = last_updated;
+        this.password = password;
+        this.projects = projects;
+        this.project = project;
+    }
+
+    public User() {
+
+    }
+
     public Long getUserID() {
         return UserID;
     }
